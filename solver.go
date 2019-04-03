@@ -17,15 +17,12 @@ import (
 	"google.golang.org/grpc"
 )
 
-const (
-	//KEY is where we store config
-	KEY = "github.com/brotherlogic/tracer/config"
-)
-
 //Server main server type
 type Server struct {
 	*goserver.GoServer
 	friends []*pbd.RegistryEntry
+	test    bool
+	pass    bool
 }
 
 // Init builds the server
@@ -33,6 +30,8 @@ func Init() *Server {
 	s := &Server{
 		&goserver.GoServer{},
 		make([]*pbd.RegistryEntry, 0),
+		false,
+		false,
 	}
 	return s
 }
@@ -62,6 +61,23 @@ func (s *Server) GetState() []*pbg.State {
 	return []*pbg.State{
 		&pbg.State{Key: "friends", Value: int64(len(s.friends))},
 	}
+}
+
+func (s *Server) runSolve(ctx context.Context, index int, req *pb.SolveRequest) (*pb.SolveResponse, error) {
+	if s.test {
+		if s.pass {
+			return &pb.SolveResponse{Solution: 10}, nil
+		}
+		return nil, fmt.Errorf("Built to fail")
+	}
+
+	conn, err := s.DoDial(s.friends[index])
+	if err != nil {
+		return nil, err
+	}
+	defer conn.Close()
+	client := pb.NewSolverServiceClient(conn)
+	return client.Solve(ctx, req)
 }
 
 func (s *Server) findFriends(ctx context.Context) error {
