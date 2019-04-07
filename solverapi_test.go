@@ -40,6 +40,38 @@ func TestProblem(t *testing.T) {
 	}
 }
 
+func TestProblem2(t *testing.T) {
+	s := Init()
+	s.test = true
+	s.pass = true
+	s.friends = append(s.friends, &pbd.RegistryEntry{})
+	r, err := s.Solve(context.Background(), &pb.SolveRequest{Problem: 2, KeyStart: 1, KeyEnd: 200})
+
+	if err != nil {
+		t.Errorf("Oops: %v", err)
+	}
+
+	if r.Solution == 0 {
+		t.Errorf("Problem in solution: %v", r)
+	}
+}
+
+func TestProblemD2(t *testing.T) {
+	s := Init()
+	s.test = true
+	s.pass = true
+	s.friends = append(s.friends, &pbd.RegistryEntry{})
+	r, err := s.Solve(context.Background(), &pb.SolveRequest{Step: 100, Problem: 2, KeyStart: 1, KeyEnd: 200})
+
+	if err != nil {
+		t.Errorf("Oops: %v", err)
+	}
+
+	if r.Solution == 0 {
+		t.Errorf("Problem in solution: %v", r)
+	}
+}
+
 func TestNoFriends(t *testing.T) {
 	s := Init()
 	s.test = true

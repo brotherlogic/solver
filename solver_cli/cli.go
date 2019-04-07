@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 	"strconv"
 	"time"
 
@@ -32,7 +33,18 @@ func main() {
 	defer cancel()
 
 	t := time.Now()
-	res, err := client.Solve(ctx, &pb.SolveRequest{Problem: 1, KeyStart: 1, KeyEnd: 1000})
+	problem, err := strconv.Atoi(os.Args[1])
+	if err != nil {
+		log.Fatalf("Bad problem")
+	}
+
+	var res *pb.SolveResponse
+	switch problem {
+	case 1:
+		res, err = client.Solve(ctx, &pb.SolveRequest{Problem: 1, KeyStart: 1, KeyEnd: 1000})
+	case 2:
+		res, err = client.Solve(ctx, &pb.SolveRequest{Problem: 2, KeyStart: 1, KeyEnd: 4000000})
+	}
 	if err != nil {
 		log.Fatalf("Fatal error: %v", err)
 	}
