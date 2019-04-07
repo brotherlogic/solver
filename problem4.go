@@ -10,3 +10,13 @@ func (s *Server) solve4(i, t int64) int64 {
 
 	return 0
 }
+
+func (s *Server) solve5(v, t int64) int64 {
+	for i := int64(2); i <= t; i++ {
+		if v%i != 0 {
+			return 0
+		}
+	}
+
+	return v
+}

@@ -12,6 +12,8 @@ func (s *Server) solve(p, i, g int64) int64 {
 		return s.solve3(i, g)
 	case 4:
 		return s.solve4(i, g)
+	case 5:
+		return s.solve5(i, g)
 	}
 
 	return 0

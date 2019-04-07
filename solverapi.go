@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 
 	pb "github.com/brotherlogic/solver/proto"
 
@@ -18,13 +19,21 @@ func (s *Server) Solve(ctx context.Context, req *pb.SolveRequest) (*pb.SolveResp
 
 func (s *Server) solveProblem(req *pb.SolveRequest) (*pb.SolveResponse, error) {
 	solution := int64(0)
-	if req.Problem == 1 || req.Problem == 3 || req.Problem == 4 {
+
+	if req.Problem == 5 {
+		solution = math.MaxInt64
+	}
+
+	if req.Problem == 1 || req.Problem == 3 || req.Problem == 4 || req.Problem == 5 {
 		for i := req.KeyStart; i < req.KeyEnd; i += req.Step {
 			if req.Problem == 1 {
 				solution += s.solve(req.Problem, i, req.Goal)
 			}
 			if req.Problem == 3 || req.Problem == 4 {
 				solution = max64(solution, s.solve(req.Problem, i, req.Goal))
+			}
+			if req.Problem == 5 {
+				solution = min64(solution, s.solve(req.Problem, i, req.Goal))
 			}
 		}
 	} else if req.Problem == 2 {
@@ -35,6 +44,10 @@ func (s *Server) solveProblem(req *pb.SolveRequest) (*pb.SolveResponse, error) {
 
 func (s *Server) distributeProblem(ctx context.Context, req *pb.SolveRequest) (*pb.SolveResponse, error) {
 	solution := int64(0)
+
+	if req.Problem == 5 {
+		solution = math.MaxInt64
+	}
 
 	if len(s.friends) == 0 {
 		return nil, fmt.Errorf("No friends")
@@ -54,6 +67,8 @@ func (s *Server) distributeProblem(ctx context.Context, req *pb.SolveRequest) (*
 			solution = resp.Solution
 		} else if req.Problem == 3 || req.Problem == 4 {
 			solution = max64(solution, resp.Solution)
+		} else if req.Problem == 5 {
+			solution = min64(solution, resp.Solution)
 		} else {
 			solution += resp.Solution
 		}
