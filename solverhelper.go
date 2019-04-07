@@ -26,6 +26,16 @@ func max64(a, b int64) int64 {
 	return b
 }
 
+func min64(a, b int64) int64 {
+	if b == 0 {
+		return a
+	}
+	if a < b {
+		return a
+	}
+	return b
+}
+
 func isPalindrome(v int64) bool {
 	str := strconv.Itoa(int(v))
 	for i := 0; i < len(str)/2; i++ {
