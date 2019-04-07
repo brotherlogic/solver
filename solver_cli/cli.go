@@ -37,5 +37,5 @@ func main() {
 		log.Fatalf("Fatal error: %v", err)
 	}
 
-	fmt.Printf("Answer: %v (%v)\n", res.Solution, time.Now().Sub(t))
+	fmt.Printf("Answer: %v (%v) from %v nodes.\n", res.Solution, time.Now().Sub(t), res.Nodes)
 }

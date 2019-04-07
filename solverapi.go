@@ -37,5 +37,5 @@ func (s *Server) distributeProblem(ctx context.Context, req *pb.SolveRequest) (*
 		}
 		solution += resp.Solution
 	}
-	return &pb.SolveResponse{Solution: solution}, nil
+	return &pb.SolveResponse{Solution: solution, Nodes: int32(len(s.friends))}, nil
 }
