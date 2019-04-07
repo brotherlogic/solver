@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"math"
 	"os"
 	"strconv"
 	"time"
@@ -44,6 +45,10 @@ func main() {
 		res, err = client.Solve(ctx, &pb.SolveRequest{Problem: 1, KeyStart: 1, KeyEnd: 1000})
 	case 2:
 		res, err = client.Solve(ctx, &pb.SolveRequest{Problem: 2, KeyStart: 1, KeyEnd: 4000000})
+	case 3:
+		res, err = client.Solve(ctx, &pb.SolveRequest{Problem: 3, KeyStart: 1, KeyEnd: int64(math.Sqrt(float64(600851475143))), Goal: 600851475143})
+	case 4:
+		res, err = client.Solve(ctx, &pb.SolveRequest{Problem: 4, KeyStart: 1001, KeyEnd: 999999, Goal: 1000})
 	}
 	if err != nil {
 		log.Fatalf("Fatal error: %v", err)

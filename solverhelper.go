@@ -2,6 +2,7 @@ package main
 
 import (
 	"math"
+	"strconv"
 )
 
 func isPrime(v int64) bool {
@@ -23,4 +24,15 @@ func max64(a, b int64) int64 {
 		return a
 	}
 	return b
+}
+
+func isPalindrome(v int64) bool {
+	str := strconv.Itoa(int(v))
+	for i := 0; i < len(str)/2; i++ {
+		if str[i] != str[len(str)-i-1] {
+			return false
+		}
+	}
+
+	return true
 }

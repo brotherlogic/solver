@@ -18,12 +18,12 @@ func (s *Server) Solve(ctx context.Context, req *pb.SolveRequest) (*pb.SolveResp
 
 func (s *Server) solveProblem(req *pb.SolveRequest) (*pb.SolveResponse, error) {
 	solution := int64(0)
-	if req.Problem == 1 || req.Problem == 3 {
+	if req.Problem == 1 || req.Problem == 3 || req.Problem == 4 {
 		for i := req.KeyStart; i < req.KeyEnd; i += req.Step {
 			if req.Problem == 1 {
 				solution += s.solve(req.Problem, i, req.Goal)
 			}
-			if req.Problem == 3 {
+			if req.Problem == 3 || req.Problem == 4 {
 				solution = max64(solution, s.solve(req.Problem, i, req.Goal))
 			}
 		}
@@ -52,7 +52,7 @@ func (s *Server) distributeProblem(ctx context.Context, req *pb.SolveRequest) (*
 		}
 		if req.Problem == 2 {
 			solution = resp.Solution
-		} else if req.Problem == 3 {
+		} else if req.Problem == 3 || req.Problem == 4 {
 			solution = max64(solution, resp.Solution)
 		} else {
 			solution += resp.Solution
