@@ -1,6 +1,6 @@
 package main
 
-func (s *Server) solve(p, i int64) int64 {
+func (s *Server) solve(p, i, g int64) int64 {
 	switch p {
 	case 1:
 		if i%3 == 0 || i%5 == 0 {
@@ -8,6 +8,8 @@ func (s *Server) solve(p, i int64) int64 {
 		}
 	case 2:
 		return s.solve2(i)
+	case 3:
+		return s.solve3(i, g)
 	}
 
 	return 0
@@ -32,4 +34,11 @@ func (s *Server) solve2(i int64) int64 {
 	}
 
 	return sum - (s2 * found)
+}
+
+func (s *Server) solve3(i int64, t int64) int64 {
+	if isPrime(i) && t%i == 0 {
+		return i
+	}
+	return 0
 }

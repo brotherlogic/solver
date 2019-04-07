@@ -6,7 +6,8 @@ message SolveRequest {
   int64 key_start = 1;
   int64 key_end = 2;
   int64 step = 3;
-  int64 problem =4;
+  int64 problem = 4;
+  int64 goal = 5;
 }
 
 message SolveResponse {
