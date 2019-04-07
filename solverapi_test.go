@@ -40,6 +40,17 @@ func TestProblem(t *testing.T) {
 	}
 }
 
+func TestNoFriends(t *testing.T) {
+	s := Init()
+	s.test = true
+	s.pass = true
+
+	r, err := s.Solve(context.Background(), &pb.SolveRequest{Problem: 1, KeyStart: 1, KeyEnd: 200})
+	if err == nil {
+		t.Errorf("Oops: %v", r)
+	}
+}
+
 func TestBasicFail(t *testing.T) {
 	s := Init()
 	s.test = true
