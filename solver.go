@@ -66,7 +66,7 @@ func (s *Server) GetState() []*pbg.State {
 func (s *Server) runSolve(ctx context.Context, index int, req *pb.SolveRequest) (*pb.SolveResponse, error) {
 	if s.test {
 		if s.pass {
-			return &pb.SolveResponse{Solution: 10}, nil
+			return s.Solve(ctx, req)
 		}
 		return nil, fmt.Errorf("Built to fail")
 	}

@@ -18,12 +18,17 @@ func (s *Server) Solve(ctx context.Context, req *pb.SolveRequest) (*pb.SolveResp
 
 func (s *Server) solveProblem(req *pb.SolveRequest) (*pb.SolveResponse, error) {
 	solution := int64(0)
-	if req.Problem == 1 {
+	if req.Problem == 1 || req.Problem == 3 {
 		for i := req.KeyStart; i < req.KeyEnd; i += req.Step {
-			solution += s.solve(req.Problem, i)
+			if req.Problem == 1 {
+				solution += s.solve(req.Problem, i, req.Goal)
+			}
+			if req.Problem == 3 {
+				solution = max64(solution, s.solve(req.Problem, i, req.Goal))
+			}
 		}
 	} else if req.Problem == 2 {
-		solution = s.solve(req.Problem, req.KeyEnd)
+		solution = s.solve(req.Problem, req.KeyEnd, req.Goal)
 	}
 	return &pb.SolveResponse{Solution: solution}, nil
 }
@@ -40,12 +45,15 @@ func (s *Server) distributeProblem(ctx context.Context, req *pb.SolveRequest) (*
 			Problem:  req.Problem,
 			KeyStart: int64(i + 1),
 			Step:     int64(len(s.friends)),
+			Goal:     req.Goal,
 			KeyEnd:   req.KeyEnd})
 		if err != nil {
 			return nil, fmt.Errorf("Failed to reach friend %v", s.friends[i].Identifier)
 		}
 		if req.Problem == 2 {
 			solution = resp.Solution
+		} else if req.Problem == 3 {
+			solution = max64(solution, resp.Solution)
 		} else {
 			solution += resp.Solution
 		}
