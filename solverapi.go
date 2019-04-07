@@ -26,6 +26,11 @@ func (s *Server) solveProblem(req *pb.SolveRequest) (*pb.SolveResponse, error) {
 
 func (s *Server) distributeProblem(ctx context.Context, req *pb.SolveRequest) (*pb.SolveResponse, error) {
 	solution := int64(0)
+
+	if len(s.friends) == 0 {
+		return nil, fmt.Errorf("No friends")
+	}
+
 	for i := 0; i < len(s.friends); i++ {
 		resp, err := s.runSolve(ctx, i, &pb.SolveRequest{
 			Problem:  req.Problem,
