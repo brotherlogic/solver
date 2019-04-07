@@ -45,7 +45,7 @@ func TestProblem2(t *testing.T) {
 	s.test = true
 	s.pass = true
 	s.friends = append(s.friends, &pbd.RegistryEntry{})
-	r, err := s.Solve(context.Background(), &pb.SolveRequest{Step: 10, Problem: 2, KeyStart: 1, KeyEnd: 200})
+	r, err := s.Solve(context.Background(), &pb.SolveRequest{Problem: 2, KeyStart: 1, KeyEnd: 200})
 
 	if err != nil {
 		t.Errorf("Oops: %v", err)
