@@ -17,12 +17,14 @@ func (s *Server) solve2(i int64) int64 {
 	s1 := int64(1)
 	s2 := int64(2)
 	t := int64(0)
-	sum := int64(3)
+	sum := int64(2)
 	for s2 < i {
 		t = s2 + s1
 		s1 = s2
 		s2 = t
-		sum += s2
+		if s2%2 == 0 {
+			sum += s2
+		}
 	}
 	return sum - s2
 }
