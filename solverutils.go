@@ -24,5 +24,5 @@ func (s *Server) solve2(i int64) int64 {
 		s2 = t
 		sum += s2
 	}
-	return sum
+	return sum - s2
 }
