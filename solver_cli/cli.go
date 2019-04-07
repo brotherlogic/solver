@@ -38,13 +38,12 @@ func main() {
 		log.Fatalf("Bad problem")
 	}
 
-	var res *pb.SolverResponse
-	var err error
+	var res *pb.SolveResponse
 	switch problem {
 	case 1:
-		res, err := client.Solve(ctx, &pb.SolveRequest{Problem: 1, KeyStart: 1, KeyEnd: 1000})
+		res, err = client.Solve(ctx, &pb.SolveRequest{Problem: 1, KeyStart: 1, KeyEnd: 1000})
 	case 2:
-		res, err := client.Solve(ctx, &pb.SolveRequest{Problem: 2, KeyStart: 1, KeyEnd: 4000000})
+		res, err = client.Solve(ctx, &pb.SolveRequest{Problem: 2, KeyStart: 1, KeyEnd: 4000000})
 	}
 	if err != nil {
 		log.Fatalf("Fatal error: %v", err)
