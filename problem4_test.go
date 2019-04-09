@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"log"
 	"testing"
 
 	pbd "github.com/brotherlogic/discovery/proto"
@@ -40,6 +41,25 @@ func TestSolve5(t *testing.T) {
 	}
 
 	if sol.Solution != int64(2520) {
+		t.Errorf("Wrong solution: %v", sol)
+	}
+}
+
+func TestSolve6(t *testing.T) {
+	s := Init()
+	s.test = true
+	s.pass = true
+
+	s.friends = append(s.friends, &pbd.RegistryEntry{})
+	s.friends = append(s.friends, &pbd.RegistryEntry{})
+
+	sol, err := s.Solve(context.Background(), &pb.SolveRequest{Problem: 6, KeyStart: 1, KeyEnd: 11})
+	if err != nil {
+		t.Fatalf("Solve fail: %v", err)
+	}
+
+	log.Printf("SOL %v", sol.Solution)
+	if 55*55-sol.Solution != 2640 {
 		t.Errorf("Wrong solution: %v", sol)
 	}
 }

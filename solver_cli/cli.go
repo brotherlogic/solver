@@ -51,6 +51,8 @@ func main() {
 		res, err = client.Solve(ctx, &pb.SolveRequest{Problem: 4, KeyStart: 1001, KeyEnd: 999999, Goal: 1000})
 	case 5:
 		res, err = client.Solve(ctx, &pb.SolveRequest{Problem: 5, KeyStart: 1, KeyEnd: 1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 * 17 * 18 * 19 * 20, Goal: 20})
+	case 6:
+		res, err = client.Solve(ctx, &pb.SolveRequest{Problem: 6, KeyStart: 1, KeyEnd: 101})
 	}
 	if err != nil {
 		log.Fatalf("Fatal error: %v", err)
