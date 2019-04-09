@@ -20,3 +20,7 @@ func (s *Server) solve5(v, t int64) int64 {
 
 	return v
 }
+
+func (s *Server) solve6(i int64) int64 {
+	return i * i
+}
