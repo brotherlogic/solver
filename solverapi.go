@@ -36,7 +36,7 @@ func (s *Server) solveProblem(req *pb.SolveRequest) (*pb.SolveResponse, error) {
 				solution = min64(solution, s.solve(req.Problem, i, req.Goal))
 			}
 		}
-	} else if req.Problem == 2 {
+	} else if req.Problem == 2 || req.Problem == 7 {
 		solution = s.solve(req.Problem, req.KeyEnd, req.Goal)
 	}
 	return &pb.SolveResponse{Solution: solution}, nil
@@ -80,7 +80,7 @@ func (s *Server) distributeProblem(ctx context.Context, req *pb.SolveRequest) (*
 		if sol == -1 {
 			return nil, fmt.Errorf("Failed to reach a friend")
 		}
-		if req.Problem == 2 {
+		if req.Problem == 2 || req.Problem == 7 {
 			solution = sol
 		} else if req.Problem == 3 || req.Problem == 4 {
 			solution = max64(solution, sol)
