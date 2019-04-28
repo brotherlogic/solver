@@ -54,6 +54,8 @@ func main() {
 	case 6:
 		res, err = client.Solve(ctx, &pb.SolveRequest{Problem: 6, KeyStart: 1, KeyEnd: 101})
 		fmt.Printf("Answer: %v (%v) from %v nodes.\n", 5050*5050-res.Solution, time.Now().Sub(t), res.Nodes)
+	case 7:
+		res, err = client.Solve(ctx, &pb.SolveRequest{Problem: 7, KeyStart: 1, KeyEnd: 10001})
 	}
 	if err != nil {
 		log.Fatalf("Fatal error: %v", err)

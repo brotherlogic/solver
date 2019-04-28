@@ -34,3 +34,12 @@ func TestSolve3(t *testing.T) {
 		t.Errorf("Wrong solution: %v", sol)
 	}
 }
+
+func TestSolve7(t *testing.T) {
+	s := Init()
+	sol := s.solve(7, 6, 0)
+
+	if sol != 13 {
+		t.Errorf("Bad results: %v", sol)
+	}
+}

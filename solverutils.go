@@ -16,6 +16,8 @@ func (s *Server) solve(p, i, g int64) int64 {
 		return s.solve5(i, g)
 	case 6:
 		return s.solve6(i)
+	case 7:
+		return s.solve7(i)
 	}
 
 	return 0
@@ -47,4 +49,16 @@ func (s *Server) solve3(i int64, t int64) int64 {
 		return i
 	}
 	return 0
+}
+
+func (s *Server) solve7(i int64) int64 {
+	primes := []int64{int64(2)}
+	check := int64(3)
+	for int64(len(primes)) < i {
+		if isPrime(check) {
+			primes = append(primes, check)
+		}
+		check += 2
+	}
+	return primes[i-1]
 }
